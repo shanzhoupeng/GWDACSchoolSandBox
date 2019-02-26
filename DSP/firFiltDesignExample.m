@@ -9,7 +9,7 @@ nSamples = 256;
 timeVec = (0:(nSamples-1))/fs;
  
 %Filter order
-fN = 10;
+fN = 30;
  
 %Frequency values at which to specify
 %the target transfer function
@@ -39,3 +39,20 @@ plot(posFreq,abs(designTf(1:kNyq)));
 
 figure;
 plot(timeVec,impResp);
+
+%% Application of the designed filter
+% Signal parameters
+a1=10;
+a2=3;
+a3=3;
+A = 10;
+timeVec2 = (0:2047)/fs;
+sigVec = crcbgenqcsig(timeVec2,A,[a1,a2,a3]);
+figure;
+plot(timeVec2,sigVec);
+hold on;
+filtSigVec = fftfilt(b,sigVec);
+axis tight;
+plot(timeVec2,filtSigVec*max(sigVec)/max(filtSigVec));
+xlabel('Time (sec)');
+title(['Filter order ', num2str(fN)]);
