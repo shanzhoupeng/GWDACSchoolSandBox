@@ -13,7 +13,7 @@ Teams (add your team name below):
 
 (4) Group 4th, leader: Xiao Xue; members: Yirui Yang, Wenfeng Cui, Wenhong Ruan
 
-(5) Group 5th, leader: ; members:
+(5) Group 5th, leader: Xiongying Qiao ; members: Yu Shi, Ying Yang, Qianqian Liu, Shangyun Wang
 
 (6) Group 6th, leader: Yu Sang; members: Xue Zhang, Yinhua Zou, Shuai Chen
 
