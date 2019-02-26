@@ -1,7 +1,7 @@
 function sigVec = genfmsinsig(dataT,snr,b,f0,f1)
-% Generate a frequency modulated (AM) sinusoid signal
+% Generate a frequency modulated (FM) sinusoid signal
 % S = GENFMSINSIG(T,SNR,B,F0,F1)
-% Generates a amplitude modulated (AM) sinusoid S. T is the vector of
+% Generates a freqency modulated (FM) sinusoid S. T is the vector of
 % time stamps at which the samples of the signal are to be computed. 
 % SNR is the matched filtering signal-to-noise ratio of S and [B,F0,F1] are
 % three coefficients that parametrize the phase of the signal:
