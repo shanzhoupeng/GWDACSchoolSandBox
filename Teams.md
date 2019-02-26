@@ -11,7 +11,7 @@ Teams (add your team name below):
 
 (3) Group 3rd, leader: ; members:
 
-(4) Group 4th, leader: Xiao Xue ; members: Yirui Yang, Wenfeng Cui, Wenhong Ruan
+(4) Group 4th, leader: Xiao Xue; members: Yirui Yang, Wenfeng Cui, Wenhong Ruan
 
 (5) Group 5th, leader: ; members:
 
