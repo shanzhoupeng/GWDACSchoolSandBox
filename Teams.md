@@ -7,7 +7,7 @@ Teams (add your team name below):
 (1) Group 1st, leader: Shucheng Yang;  members: Yufeng Li, Shuo Xin, Zejun Wang, Manman Sun, Zuipen Cao;
 
 
-(2) Group 2nd, leader: Zu-Cheng Chen ; members: Qi-Heng Cai, Tai Zhou, Jun-Jie Zhao.
+(2) Group 2nd, leader: Zu-Cheng Chen; members: Qi-Heng Cai, Tai Zhou, Jun-Jie Zhao.
 
 (3) Group 3rd, leader: ; members:
 
