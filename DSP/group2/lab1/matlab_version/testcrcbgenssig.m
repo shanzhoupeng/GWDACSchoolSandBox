@@ -1,22 +1,20 @@
-%% Plot the Sine-Gaussian signal
+%% Plot the sine-gaussian signal
 % Signal parameters
-t0=0.5;
-sigma=1;
-f0=5;
-phi0=0;
+a1=10;
+a2=3;
 A = 10;
 % Instantaneous frequency after 1 sec is 
-maxFreq = f0;
-samplFreq = 5*maxFreq;
+Freq = a1;
+samplFreq = 5*Freq;
 samplIntrvl = 1/samplFreq;
 
 % Time samples
-timeVec = 0:samplIntrvl:10;
+timeVec = 0:samplIntrvl:1.0;
 % Number of samples
 nSamples = length(timeVec);
 
 % Generate the signal
-sigVec = sgsig(timeVec,A,[t0,sigma,f0,phi0]);
+sigVec = crcbgenssig(timeVec,A,[a1,a2]);
 
 %Plot the signal 
 figure;
