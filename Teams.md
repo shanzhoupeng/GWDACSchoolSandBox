@@ -14,7 +14,7 @@ Teams (add your team name below):
 
 (5) Group 5th, leader: ; members:
 
-(6) Group 6th, leader: ; members:
+(6) Group 6th, leader: Yu Sang; members: Xue Zhang, Yinhua Zou, Shuai Chen
 
 (7) Group 7th, leader: ; members:
 
