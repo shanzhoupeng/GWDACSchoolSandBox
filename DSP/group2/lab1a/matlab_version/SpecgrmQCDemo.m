@@ -10,9 +10,13 @@ a2=3;
 a3=10;
 A = 10;
 
+crcbgenqcsig(1.68,A,[a1,a2,a3])
+
 %%
 % Generate signal
 sigVec = crcbgenqcsig(timeVec,A,[a1,a2,a3]);
+figure;
+plot(timeVec, sigVec)
 
 %% 
 % Make spectrogram with different time-frequency resolution
@@ -30,4 +34,7 @@ imagesc(T,F,abs(S));axis xy;
 xlabel('Time (sec)');
 ylabel('Frequency (Hz)');
 
+%%
+[S,F,T]=spectrogram(sigVec, 128,127,[],sampFreq);
+F(1:10)
 
