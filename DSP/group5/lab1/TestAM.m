@@ -1,5 +1,3 @@
-%Add the current file path
-addpath(genpath(pwd));
 %% Plot the Amplitude modulated(AM) sinusoid
 %S(t)=A*cos(2*pi*f0.*t).*sin(f1.*t+phi)
 % Signal parameters

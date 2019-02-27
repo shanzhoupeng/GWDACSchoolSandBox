@@ -1,4 +1,4 @@
-function sigVec = genamfmsinsig(dataT,snr,b,f0,f1)
+function sigVec = amfmsinsig(dataT,snr,b,f0,f1)
 % Generate a AM-FM sinusoid signal
 % S = GENFMSINSIG(T,SNR,B,F0,F1)
 % Generates a amplitude AM-FM sinusoid S. T is the vector of
