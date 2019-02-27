@@ -6,7 +6,6 @@ Teams (add your team name below):
 
 (1) Group 1st, leader: Shucheng Yang;  members: Yufeng Li, Shuo Xin, Zejun Wang, Manman Sun, Zuipen Cao;
 
-
 (2) Group 2nd, leader: Zu-Cheng Chen; members: Qi-Heng Cai, Tai Zhou, Jun-Jie Zhao.
 
 (3) Group 3rd, leader: Xinchun Hu ; members:Wei Su, Dongdong Zhu, Zihan Yang, Hongyue Jiang.
@@ -17,7 +16,7 @@ Teams (add your team name below):
 
 (6) Group 6th, leader: Yu Sang; members: Xue Zhang, Yinhua Zou, Shuai Chen
 
-(7) Group 7th, leader: ; members:
+(7) Group 7th, leader: David(Xuehao Zhang) ; members: Li Zhao, Jing Chen, Chen Yang, Wei Yang, Shanquan Gui
 
 
 
