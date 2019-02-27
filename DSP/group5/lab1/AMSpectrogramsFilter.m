@@ -8,7 +8,7 @@ f2=250;
 phi=70/5;
 dataLen = timeVec(end)-timeVec(1);%Length of data 
 nSamples = length(timeVec);% Number of samples
-sigVec = AM(A,[f0,f1],phi,timeVec)+AM(A,[f0,f2],phi,timeVec);
+sigVec = Am(A,[f0,f1],phi,timeVec)+Am(A,[f0,f2],phi,timeVec);
 plot(timeVec,sigVec)
 %% fft anlysis
 kNyq = floor(nSamples/2)+1;
