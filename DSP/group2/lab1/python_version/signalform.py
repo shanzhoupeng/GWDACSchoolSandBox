@@ -1,8 +1,36 @@
-
 import numpy as np
 from numpy import pi, cos, sin
+from math import floor
+from scipy.fftpack import fft
+import matplotlib.pyplot as plt
 
+def test_signal(timeVec, sigVec, title='', figsize=(9, 5)):
+    # Length of data
+    nSamples = len(timeVec)
+    timeLen = timeVec[-1] - timeVec[0]
+    # DFT sample corresponding to Nyquist frequency
+    Nyq = floor(nSamples / 2) + 1
+    # Positive Fourier frequencies
+    posFreq = np.arange(Nyq) / timeLen
+    # FFT of signal
+    fftSig = fft(sigVec)
+    
+    fig, axs = plt.subplots(nrows=1, ncols=2, figsize=figsize)
+    ax = axs[0]
+    ax.plot(timeVec, sigVec)
+    ax.set_title('Time-domain Diagram')
+    ax.set_xlabel('time (s)')
+    ax.set_ylabel('s(t)')
 
+    ax = axs[1]
+    ax.errorbar(posFreq, np.abs(fft(sigVec)[0:Nyq]))
+    ax.set_title('Frequency-domain Diagram')
+    ax.set_xlabel('frequency (Hz)')
+    ax.set_ylabel(r'$\tilde{s}(f)$')
+
+    fig.suptitle(title)
+    plt.show()
+    
 class SignalForm:
     """ Generate the Signal Form
     
