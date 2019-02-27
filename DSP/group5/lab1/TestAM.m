@@ -9,12 +9,13 @@ f1=5/3;
 phi=7/5;
 
 % Time samples
-timeVec = 0:1/50:5.0;
-% Number of samples
-nSamples = length(timeVec);
+% Group4: Redo the sampling
+sampFreq = 8;
+nSamples = 256;
+timeVec = (0:(nSamples-1))/sampFreq;
 
 % Generate the signal
-sigVec =AM(A,[f0,f1],phi,timeVec);
+sigVec =Am(A,[f0,f1],phi,timeVec);
 
 %Plot the signal 
 figure;
@@ -32,3 +33,16 @@ fftSig = fftSig(1:kNyq);
 %Plot periodogram
 figure;
 plot(posFreq,abs(fftSig));
+
+%% Make Spectrogram
+figure;
+spectrogram(sigVec, 128,125,[],sampFreq);
+figure;
+spectrogram(sigVec, 64,62,[],sampFreq);
+
+% Make plots independently of the spectrogram function
+[S,F,T]=spectrogram(sigVec, 64,62,[],sampFreq);
+figure;
+imagesc(T,F,abs(S));axis xy;
+xlabel('Time (sec)');
+ylabel('Frequency (Hz)');
