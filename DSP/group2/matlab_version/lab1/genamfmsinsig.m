@@ -10,5 +10,5 @@ function sigVec = genamfmsinsig(dataT,snr,b,f0,f1)
 
 phaseVec01 = 2*pi*f1*dataT;
 phaseVec02 = 2*pi*f0*dataT + b*cos(2*pi*f1*dataT);
-sigVec = cos(phaseVec01) * sin(phaseVec02);
+sigVec = cos(phaseVec01) .* sin(phaseVec02);
 sigVec = snr*sigVec/norm(sigVec);
