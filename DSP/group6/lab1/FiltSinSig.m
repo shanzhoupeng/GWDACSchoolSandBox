@@ -1,10 +1,17 @@
 %% FiltSigSig demo
+% Use the function for generating a sinusoid to generate a signal containing 
+% the sum of three sinusoids with the following parameters.
+% Use Matlab¡¯s fir1 function to design 3 different filters such that 
+% filter #i allows only signal #i to pass through.
+% Apply each filter to the signal and show the periodogram of 
+% the input and outputs.
+
 
 %Yu Sang, Feb 27th 2019
-%% FiltSigSig demo
+
 sampFreq = 1024;
 nSamples = 2048;
-timeVec = (0:(nSamples-1))/sampFreq;% so timeVec is 2 sec.
+timeVec = (0:(nSamples-1))/sampFreq;% so timeVec is around 2 sec.
 
 
 %% Sinusoid signal
