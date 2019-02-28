@@ -11,7 +11,7 @@ samplFreq = 5*Freq;
 samplIntrvl = 1/samplFreq;
 
 % Time samples
-timeVec = 0:samplIntrvl:1.0;
+timeVec = 0:samplIntrvl:10;
 % Number of samples
 nSamples = length(timeVec);
 
@@ -38,3 +38,7 @@ fftSig = fftSig(1:kNyq);
 % Plot periodogram
 figure;
 plot(posFreq,abs(fftSig));
+
+%Plot spectrogram (by Shucheng Yang of group1) 
+spectrogram(sigVec,20,19,[],samplFreq)
+
