@@ -4,6 +4,6 @@ function result = eplus(xBasis, yBasis)
 
 % Zu-Cheng Chen, Feb 2019
   
-result = xBasis' * yBasis - yBasis' * yBasis;
+result = xBasis' * xBasis - yBasis' * yBasis;
 end
 

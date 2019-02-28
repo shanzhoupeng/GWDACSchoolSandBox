@@ -3,5 +3,5 @@ function result = detTensor(XBasis, YBasis)
 % C = detTensor(X, Y)
 
 % Zu-Cheng Chen, Feb 2019
-result = 1/2 * (XBasis' * YBasis - YBasis' * YBasis);
+result = 1/2 * (XBasis' * XBasis - YBasis' * YBasis);
 end

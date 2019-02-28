@@ -4,5 +4,5 @@ function result = ecross(xBasis, yBasis)
 
 % Zu-Cheng Chen, Feb 2019
 
-result = xBasis' * yBasis + yBasis' * yBasis;
+result = xBasis' * yBasis + yBasis' * xBasis;
 end
