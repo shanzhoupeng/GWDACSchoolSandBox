@@ -1,5 +1,5 @@
 %% Main Program. 
-%  The animated films shows the way the signal changes when the polarization
+%  The animated films show the way the signal changes when the polarization
 %  direction of the GW changes.
 %  Xue Xiao, group4, Feb 2019
 figure
