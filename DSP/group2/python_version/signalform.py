@@ -23,7 +23,7 @@ def test_signal(timeVec, sigVec, title='', figsize=(9, 5)):
     ax.set_ylabel('s(t)')
 
     ax = axs[1]
-    ax.errorbar(posFreq, np.abs(fft(sigVec)[0:Nyq]))
+    ax.plot(posFreq, np.abs(fft(sigVec)[0:Nyq]))
     ax.set_title('Frequency-domain Diagram')
     ax.set_xlabel('frequency (Hz)')
     ax.set_ylabel(r'$\tilde{s}(f)$')
