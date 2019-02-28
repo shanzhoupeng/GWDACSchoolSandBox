@@ -1,4 +1,4 @@
-function result = Fplus(theta, phi)
+function result = Fplus(theta, phi, angle)
 % antenna patten 
 % C = Fplus(theta, phi)
 
@@ -13,6 +13,13 @@ rBasis = [sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)];
 xBasis = vcrossprod(ZBasis, rBasis);
 xBasis = xBasis/norm(xBasis);
 yBasis = vcrossprod(xBasis, rBasis);
+
+% rotation
+xBasis = rotMat(angle) * xBasis';
+yBasis = rotMat(angle) * yBasis';
+xBasis = xBasis';
+yBasis = yBasis';
+
 zBasis = -rBasis;
 
 tensor01 = eplus(xBasis, yBasis);
