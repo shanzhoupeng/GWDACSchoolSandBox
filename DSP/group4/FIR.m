@@ -1,4 +1,4 @@
-% Create signals of 3 sine functions and filter it.
+% Create sinusoid signals and filter it.
 % Group4, Xiao Xue, Feb 2019
 %% Create Samples
 nSamples=2048;
