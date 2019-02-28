@@ -41,6 +41,6 @@ ec_Ten = nX_Wa_Vec_Rot'*nY_Wa_Vec_Rot + nY_Wa_Vec_Rot'*nX_Wa_Vec_Rot;
 
 %% antenna pattern functions
 Fp_Ten = sum(ep_Ten(:).*D_Ten(:));
-Fp_Ten = abs(Fp_Ten);
+%Fp_Ten = abs(Fp_Ten);
 Fc_Ten = sum(ec_Ten(:).*D_Ten(:));
-Fc_Ten = abs(Fc_Ten);
+%Fc_Ten = abs(Fc_Ten);
