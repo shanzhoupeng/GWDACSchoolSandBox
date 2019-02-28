@@ -2,9 +2,15 @@ function [] = skyplot(alphaVec,deltaVec,fHandle)
 %Plot a function of sky angles on the unit sphere
 %SKYPLOT(A,D,F)
 %A and D are the vector of azimuthal and polar angle values respectively. F
-%is the handle to the function of A and D that is to be plotted on the
+%is the handle to the function (see below) of A and D that is to be plotted on the
 %sphere. The polar angle range is 0 (z-axis) to 180 (negative z-axis). The
 %angles are assumed to be in radian.
+%
+%Example:
+% The function to be plotted is named 'fp' and accepts inputs 'theta' and
+% 'phi'. Then,do:
+% >> fhandle = @(x,y) fp(x,y)
+% >> skyplot(0:0.1:(2*pi),0:0.1:pi, fhandle);
 
 %Soumya D. Mohanty, June 2018
 
