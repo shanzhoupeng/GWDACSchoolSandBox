@@ -1,5 +1,6 @@
-%%
+%% FiltSigSig demo
 
+%Yu Sang, Feb 27th 2019
 %% FiltSigSig demo
 sampFreq = 1024;
 nSamples = 2048;
