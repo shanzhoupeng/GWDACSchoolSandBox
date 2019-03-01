@@ -1,6 +1,6 @@
-%This file generate the animation of LISA orbits
+%% This file generate the animation of LISA orbits
 
-%These four parameters below can be modified:
+%% These four parameters below can be modified:
 n=100;          %number of points
 m=2;            %number of loops 
 Distance=5;     %149597870700;%;%separation between sun and and center of 3 satellites(earth)
@@ -23,7 +23,7 @@ z3=ones(length(t),3);
 % n=[cos(delta).*cos(alpha),cos(delta).*sin(alpha),sin(delta)];%derection of source
 
 
-%initial positions of three satellites here(unit vector):
+%% Initial positions of three satellites here(unit vector):
 V1=[1,0,0]';
 V2=[-1/2,sqrt(3)/2,0]';
 V3=[-1/2,-sqrt(3)/2,0]';
@@ -47,6 +47,8 @@ z1(i,1:3)=Z{i,1}';
 z2(i,1:3)=Z{i,2}';
 z3(i,1:3)=Z{i,3}';
 end
+
+%% Play the movie
 
 %M = moviein(m*n); 
 
