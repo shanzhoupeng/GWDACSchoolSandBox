@@ -11,8 +11,12 @@ alphaVec=(0:2*pi/(nsample-1):2*pi);%phiVec
 fplusVec=zeros(1,nsample);
 fcrossVec=zeros(1,nsample);
 
-%variables about movie
-nframe=20;%number of frames
+%% Variables about movie
+nframe=20;%number of frames. not too large if your computer is not good enough
+periodoftime=2;%second
+fps=nframe/periodoftime;
+nloops=1;%number of loops
+
 fmatplus=moviein(nframe);
 fmatcross=moviein(nframe);
 
@@ -47,8 +51,12 @@ end
 
 %% Let's play the movie
 figure
-movie(fmatplus,[],2,[500,-233,0,0])
-movie(fmatcross,[],2,[500,-233,0,0])
+set(gcf,'outerposition',get(0,'screensize'));
+movie(fmatplus,nloops,fps,[500,-233,0,0])
+
+figure
+set(gcf,'outerposition',get(0,'screensize'));
+movie(fmatcross,nloops,fps,[500,-233,0,0])
 
 
 
