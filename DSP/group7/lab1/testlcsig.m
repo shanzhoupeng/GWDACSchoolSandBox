@@ -15,7 +15,7 @@ timeVec = 0:samplIntrvl:1.0;
 nSamples = length(timeVec);
 
 % Generate the signal
-sigVec = LinearChirpSignal(timeVec,A,[a1,a2],Phi0);
+sigVec = genlcsig(timeVec,A,[a1,a2],Phi0);
 
 %Plot the signal 
 figure;

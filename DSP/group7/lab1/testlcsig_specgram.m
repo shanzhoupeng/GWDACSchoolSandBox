@@ -13,7 +13,7 @@ timeVec = (0:(nSamples-1))/sampFreq;% so timeVec is 2 sec.
 
 %%
 % Generate signal
-sigVec = LinearChirpSignal(timeVec,A,[a1,a2],Phi0);
+sigVec = genlcsig(timeVec,A,[a1,a2],Phi0);
 
 %% 
 % Make spectrogram with different time-frequency resolution
