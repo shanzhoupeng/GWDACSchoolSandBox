@@ -7,12 +7,13 @@ function [] = skyplot(alphaVec,deltaVec,fHandle)
 %angles are assumed to be in radian.
 %
 %Example:
-% The function to be plotted is named 'fp' and accepts inputs 'theta' and
-% 'phi'. Then,do:
+% The function to be plotted is named 'fp' and accepts inputs 'phi' and
+% 'theta'. Then,do:
 % >> fhandle = @(x,y) fp(x,y)
 % >> skyplot(0:0.1:(2*pi),0:0.1:pi, fhandle);
 
 %Soumya D. Mohanty, June 2018
+%
 
 %Generate the X, Y, Z meshes corresponding to the azimuthal and polar
 %angles
@@ -30,5 +31,5 @@ for lp1 = 1:length(alphaVec)
 end
 
 %Plot
-surf(X,Y,Z,abs(fVals));
+surf(X,Y,Z,abs(fVals));axis equal
 shading interp;
