@@ -25,7 +25,7 @@ b = fir2(fltrOrdr,freqVec/(sampFreq/2),sqrt(psdVec));
 % (Comment out the line below if new realizations of WGN are needed in each run of this script)
 rng('default'); 
 inNoise = randn(1,nSamples);
-outNoise = fftfilt(b,inNoise);
+outNoise = sqrt(sampFreq)*fftfilt(b,inNoise);%where I made my change
 
 %%
 % Estimate the PSD
