@@ -14,13 +14,14 @@ timeVec = (0:(nSamples-1))/sampFreq;
 
 %% signal
 % Generate the signal that is to be normalized
-a1 = 10;
-a2 = 3;
-a3 = 3;
-snr = 1;
+a1=10;
+a2=3;
+a3=3;
+qcCoefs = [a1,a2,a3];
 % Amplitude value does not matter as it will be changed in the normalization
 A = 1; 
-sigVec = crcbgenqcsig(timeVec, snr, [a1,a2,a3]);
+snr =1;
+sigVec = crcbgenqcsig(timeVec,snr,qcCoefs);
 [sigVec, normFactor] = normSig(sigVec, sampFreq, psdPosFreq, snr);
 
 %%
@@ -38,14 +39,14 @@ psdPosFreq = noisePSD(posFreq);
 fltrOrdr = 30;
 psdVals = [posFreq(:),psdPosFreq(:)];
 
-LG = GLRT(dataVec,sigVec,sampFreq,psdPosFreq);
+LG = fitFunc(dataVec,qcCoefs,sampFreq,psdPosFreq);
 %% 
 
 nData = 10000;
 llrs = zeros(1,nData);
 for lp = 1:nData
     noiseVec = statgaussnoisegen(nSamples,psdVals,fltrOrdr,sampFreq);
-    llrs(lp) = GLRT(noiseVec,sigVec,sampFreq,psdPosFreq);
+    llrs(lp) = fitFunc(noiseVec,qcCoefs,sampFreq,psdPosFreq);
 end
 
 significances(i) = sum(llrs > LG)/nData;
