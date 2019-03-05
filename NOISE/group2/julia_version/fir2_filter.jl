@@ -1,8 +1,9 @@
 using DSP
+using FFTW
 ## using PyCall
 ## @pyimport numpy
 
-function interp1d{T<:Real, S<:Real, P<:Real}(grid::AbstractVector{T}, xp::AbstractVector{S}, yp::AbstractVector{P})
+function interp1d(grid::AbstractVector{T}, xp::AbstractVector{S}, yp::AbstractVector{P}) where {T<:Real, S<:Real, P<:Real}
     if grid[1] < xp[1]
         error("cannot extrapolate to lower values than x")
     end
@@ -14,10 +15,10 @@ function interp1d{T<:Real, S<:Real, P<:Real}(grid::AbstractVector{T}, xp::Abstra
     yms = zeros(n)
     for i=1:n
         if in(grid[i], xp)
-            yms[i] = yp[find(grid[i].==xp)[1]]
+            yms[i] = yp[findall(grid[i].==xp)[1]]
         else
-            idx1 = find(grid[i].< xp)[1]
-            idx2 = idx1-1#find(grid[i].>xp)[1]
+            idx1 = findall(grid[i].< xp)[1]
+            idx2 = idx1-1#findall(grid[i].>xp)[1]
             yms[i] = yp[idx1] + (yp[idx2] - yp[idx1]) * ((grid[i] - xp[idx1])/(xp[idx2]-xp[idx1]))
         end     
     end
@@ -122,8 +123,8 @@ end
 
     ## """
 
-function firwin2{T<:Real, S<:Real}(numtaps::Int, freq::AbstractVector{T}, gain::AbstractVector{S}; nfreqs::Int=-1, window::Function=hamming, nyq::Real=1.0,
-                 antisymmetric::Bool=false)
+function firwin2(numtaps::Int, freq::AbstractVector{T}, gain::AbstractVector{S}; 
+        nfreqs::Int=-1, window::Function=hamming, nyq::Real=1.0, antisymmetric::Bool=false) where {T<:Real, S<:Real}
 
 
     if length(freq) != length(gain)
@@ -186,13 +187,13 @@ function firwin2{T<:Real, S<:Real}(numtaps::Int, freq::AbstractVector{T}, gain::
     end
 
     # Linearly interpolate the desired response on a uniform mesh `x`.
-    x = collect(linspace(0.0, nyq, nfreqs))
+    x = collect(range(0.0, nyq, length = nfreqs))
     fx = interp1d(x, freq, gain)
     #fx = numpy.interp(x, freq, gain)
 
     # Adjust the phases of the coefficients so that the first `ntaps` of the
     # inverse FFT are the desired filter coefficients.
-    shift = exp(-(numtaps - 1) / 2 * 1im * pi * x / nyq)
+    shift = exp.(-(numtaps - 1) / 2 * 1im * pi * x / nyq)
     if ftype > 2
         shift = shift.*1im
     end
