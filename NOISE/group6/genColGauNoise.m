@@ -19,6 +19,7 @@ timeVec = (0:(nSamples-1))/sampFreq;
 freqVec = freqPSDVec(:,1);
 sqrtPSDVec = freqPSDVec(:,2);
 psdVec = sqrtPSDVec.^2;
+figure;
 plot(freqVec,psdVec);
 
 % Design FIR filter with T(f)= square root of target PSD
