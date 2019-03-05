@@ -1,10 +1,11 @@
+%% generating signal+noise and plot its timedomain/freuqncydomain/Spectrogram plots 
 SNR=10;
 nSamples = 2048;
 sampFreq = 1024;
 timeVec = (0:(nSamples-1))/sampFreq;
 
 %addpath ../NOISE/
-%addpath ../DSP/group1/lab1/
+%addpath ../DSP/group3
 
 %% PSD of noise
 noisePSD = @(f) (f>=100 & f<=300).*(f-100).*(300-f)/10000 +1;
@@ -15,22 +16,24 @@ psdPosFreq = noisePSD(posFreq);
 
 %% Generating noise
 noiseVec = statgaussnoisegen(nSamples,[posFreq;psdPosFreq]',500,sampFreq);
-%look at the generated PSD
+%look at the generated PSD for gaussian noise
 pwelch(noiseVec, 64,[],[],sampFreq);
-%% Generating signal
-t0=0.5;
+
+%% Generating AM-FM sinusoid signal
+A=10;
 f0=100;
 f1=150;
-phi0=0;
-sigVec=lcsig(timeVec,10,[ f0, f1,phi0]);
+b=15;
+sigVec=AM_FMsinusoid(A,timeVec,b,f0,f1);
+dataVec=sigVec+noiseVec;
 %normalizing to SNR
 [sigVec,myfac]=Exercise1_normcalc( sigVec, sampFreq, psdPosFreq, SNR );
 %% Time domain
 figure;
 hold on;
 xlabel('Time(s)');
-ylabel(['Noise+GaussianChirp [t0, sigma, f0, phi0]=',mat2str([t0, sigma, f0, phi0])] );
-plot(timeVec,sigVec+noiseVec);
+ylabel('time domain signal' );
+plot(timeVec,dataVec);
 
 %% Frequency domain
 fftsig=fft(noiseVec+sigVec);

@@ -3,7 +3,6 @@
 % xinchun hu
 % Signal parameters
 f0=5;
-phi0=pi/2.67;
 
 % Time samples
 samplIntrvl=0.001;
