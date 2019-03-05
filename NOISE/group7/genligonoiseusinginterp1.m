@@ -60,6 +60,17 @@ end
 if addNyq
     targetSens = [targetSens;[fs/2,0]];
 end
+
+%% Interplation
+nSens=length(targetSens);
+interval=fs/(2*(nSens-1));
+newFreqVec=0:interval:fs/2;
+
+newPsdVec=interp1(targetSens(:,1),targetSens(:,2),newFreqVec);
+
+targetSens(:,1)=newFreqVec;
+targetSens(:,2)=newPsdVec;
+
 %%
 % Obtain filter coefficients. 
 b = fir2(filtOrdr,targetSens(:,1)/(fs/2),targetSens(:,2));
