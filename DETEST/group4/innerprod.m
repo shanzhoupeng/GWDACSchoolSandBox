@@ -1,3 +1,6 @@
+%% Exercise 1
+% In this function we calcaulate the innerproduct with a given PSD
+% function.
 function prod = innerprod(vec1,vec2, sampFreq, psd)
 
 nSample = length(vec1);
