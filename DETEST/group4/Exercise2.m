@@ -12,7 +12,7 @@ kNyq = floor(nSamples/2)+1;
 
 load('data/iLIGOss.mat')
 freqVec = iLIGOss(:,1);
-targetVec = iLIGOss(:,2);
+targetVec = iLIGOss(:,2).^2; %fixed: .^2 
 
 %% Filtering the noise
 outnoise = statgaussnoisegen(nSamples,[freqVec(:),targetVec(:)],100,sampFreq);
