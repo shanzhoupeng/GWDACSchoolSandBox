@@ -25,10 +25,10 @@ ylabel('PSD value')
 sig0 = crcbgenfmsig(timeVec,1,[300,200,1,3]);
 
 % calculate the norm
-norm = innerprod(sig0, sig0, sampFreq, psdVec);
+normfactor = innerprod(sig0, sig0, sampFreq, psdVec);
 
 snr=10;
-sigVec = snr*sig0/sqrt(norm);
+sigVec = snr*sig0/sqrt(normfactor);
 
 subplot(2,2,2)
 plot(timeVec,sigVec)
