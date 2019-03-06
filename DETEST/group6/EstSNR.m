@@ -1,26 +1,15 @@
-%% How to normalize a signal for a given SNR
-% We will normalize a signal such that the Likelihood ratio (LR) test for it has
-% a given signal-to-noise ratio (SNR) in noise with a given Power Spectral 
-% Density (PSD). [We often shorten this statement to say: "Normalize the
-% signal to have a given SNR." It is understood in this statement that one 
-% is talking about the LR for Gaussian noise as the detection statistic.
+%% Estimate the SNR of the LR test  Exercise #3
 
-%%
-% We will reuse codes that have already been written.
-% Path to folder containing signal and noise generation codes
-addpath ../DSP/
-addpath ../NOISE/
-
+% Yu Sang, Mar 4th 2019
 %%
 % This is the target SNR
-snr = 10;
+snr = 100;
 
 %%
 % Data generation parameters
 nSamples = 2048;
 sampFreq = 1024;
 timeVec = (0:(nSamples-1))/sampFreq;
-
 
 %%
 % Generate the signal that is to be normalized
@@ -63,7 +52,7 @@ nH0Data = 1000;
 llrH0 = zeros(1,nH0Data);
 for lp = 1:nH0Data
     noiseVec = statgaussnoisegen(nSamples,[posFreq(:),psdPosFreq(:)],100,sampFreq);
-    llrH0(lp) = innerprodpsd(noiseVec,sigVec,sampFreq,psdPosFreq);
+    llrH0(lp) = calLikeRat(noiseVec,sigVec,sampFreq,psdPosFreq);
 end
 %Obtain LLR for multiple data (=signal+noise) realizations
 nH1Data = 1000;
@@ -72,28 +61,8 @@ for lp = 1:nH0Data
     noiseVec = statgaussnoisegen(nSamples,[posFreq(:),psdPosFreq(:)],100,sampFreq);
     % Add normalized signal
     dataVec = noiseVec + sigVec;
-    llrH1(lp) = innerprodpsd(dataVec,sigVec,sampFreq,psdPosFreq);
+    llrH1(lp) = calLikeRat(dataVec,sigVec,sampFreq,psdPosFreq);
 end
 %%
 % Signal to noise ratio estimate
-estSNR = (mean(llrH1)-mean(llrH0))/std(llrH0);
-
-figure;
-histogram(llrH0);
-hold on;
-histogram(llrH1);
-xlabel('LLR');
-ylabel('Counts');
-legend('H_0','H_1');
-title(['Estimated SNR = ',num2str(estSNR)]);
-%%
-% A data realization
-figure;
-plot(timeVec,dataVec);
-hold on;
-plot(timeVec,sigVec);
-xlabel('Time (sec)');
-ylabel('Data');
-
-
-
+estSNR = (mean(llrH1)-mean(llrH0))/std(llrH0)

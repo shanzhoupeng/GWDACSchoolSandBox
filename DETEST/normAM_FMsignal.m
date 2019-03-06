@@ -8,8 +8,8 @@
 %%
 % We will reuse codes that have already been written.
 % Path to folder containing signal and noise generation codes
-addpath ../../DSP/
-addpath ../../NOISE/
+addpath ../DSP/
+addpath ../NOISE/
 
 %%
 % This is the target SNR
@@ -17,19 +17,23 @@ snr = 10;
 
 %%
 % Data generation parameters
-nSamples = 2048;
-sampFreq = 1024;
-timeVec = (0:(nSamples-1))/sampFreq;
+% Signal parameters
+f0=5;
+f1=10;
+b=0.5;
 
+% Time samples
+samplIntrvl=0.001;
+sampFreq=1/samplIntrvl;
+timeVec = 0:samplIntrvl:12;
 
-%%
-% Generate the signal that is to be normalized
-a1=10;
-a2=3;
-a3=3;
-% Amplitude value does not matter as it will be changed in the normalization
-A = 1; 
-sigVec = crcbgenqcsig(timeVec,1,[a1,a2,a3]);
+Ampli=12;
+
+% Number of samples
+nSamples = length(timeVec);
+
+% Generate the signal call signal model
+sigVec = AM_FMsinusoid(Ampli,timeVec,b,f0,f1);  
 
 %%
 % We will use the noise PSD used in colGaussNoiseDemo.m but add a constant
@@ -79,9 +83,9 @@ end
 estSNR = (mean(llrH1)-mean(llrH0))/std(llrH0);
 
 figure;
-hist(llrH0);%histogram
+histogram(llrH0);
 hold on;
-hist(llrH1);%histogram
+histogram(llrH1);
 xlabel('LLR');
 ylabel('Counts');
 legend('H_0','H_1');

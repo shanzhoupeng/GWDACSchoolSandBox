@@ -16,23 +16,26 @@ plot(freqVec,psdVec);
 
 %%
 % Design FIR filter with T(f)= square root of target PSD
-sqrtPSD = sqrt(psdVec);
-fltrOrdr = 500;
-b = fir2(fltrOrdr,freqVec/(sampFreq/2),sqrt(psdVec));
+% sqrtPSD = sqrt(psdVec);
+ fltrOrdr = 500;
+% b = fir2(fltrOrdr,freqVec/(sampFreq/2),sqrt(psdVec));
+% 
+% %%
+% % Generate a WGN realization and pass it through the designed filter
+% % (Comment out the line below if new realizations of WGN are needed in each run of this script)
+% rng('default'); 
+% inNoise = randn(1,nSamples);
+% outNoise = fftfilt(b,inNoise);
 
-%%
-% Generate a WGN realization and pass it through the designed filter
-% (Comment out the line below if new realizations of WGN are needed in each run of this script)
-rng('default'); 
-inNoise = randn(1,nSamples);
-outNoise =fftfilt(b,inNoise);
+%% Generate noise realization
+outNoise = statgaussnoisegen(nSamples,[freqVec(:),psdVec(:)],fltrOrdr,sampFreq);
 
 %%
 % Estimate the PSD
-figure;
-pwelch(outNoise, 512,[],[],sampFreq);
-hold on;
-pwelch(inNoise, 512, [], [], sampFreq);
+% figure;
+% pwelch(outNoise, 512,[],[],sampFreq);
+% hold on;
+% pwelch(inNoise, 512, [], [], sampFreq);
 %Pwelch plots in dB (= 10*log10(x)); plot on a linear scale
 [pxx,f]=pwelch(outNoise, 256,[],[],sampFreq);
 figure;
@@ -41,10 +44,6 @@ xlabel('Frequency (Hz)');
 ylabel('PSD');
 % Plot the colored noise realization
 figure;
-plot(timeVec,inNoise);
-hold on
-plot(timeVec,outNoise,'r');
-legend('inNoise','outNoise');
+plot(timeVec,outNoise);
 
-inStd=std(inNoise);
-outStd=std(outNoise);
+

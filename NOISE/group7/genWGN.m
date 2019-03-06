@@ -7,13 +7,13 @@ realization3=sqrt(2).*randn(1,nSamples);
 realization4=2+sqrt(2).*randn(1,nSamples);
 %%
 figure
-hist(realization1);
+hist(realization1,50);
 figure
-hist(realization2);
+hist(realization2,50);
 figure
-hist(realization3);
+hist(realization3,50);
 figure
-hist(realization4);
+hist(realization4,50);
 
 %%
 mean1=mean(realization1);
