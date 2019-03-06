@@ -1,5 +1,5 @@
 function LG = fitFunc(dataVec,qcCoefs,sampFreq,psdPosFreq)
-%   LR(dataVec,sigVec,sampFreq,psdPosFreq)
+%   fitFunc(dataVec,qcCoefs,sampFreq,psdPosFreq)
 %Obtain LLR values for multiple noise realizations
 
 %Zu-Cheng Chen, Mar 2019

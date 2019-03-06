@@ -9,10 +9,7 @@ for i = 1:3
 file = load(files(i));
 dataVec = file.dataVec;
 sampFreq = file.sampFreq;
-%% Data generation parameters
-
 nSamples = length(dataVec);
-timeVec = (0:(nSamples-1))/sampFreq;
 
 %% signal
 % Generate the signal that is to be normalized
@@ -20,9 +17,6 @@ a1=10;
 a2=3;
 a3=3;
 qcCoefs = [a1,a2,a3];
-% Amplitude value does not matter as it will be changed in the normalization
-A = 1; 
-snr =1;
 
 %%
 % Generate a realization of initial LIGO noise using NOISE/statgaussnoisegen.m
@@ -42,7 +36,7 @@ psdVals = [posFreq(:),psdPosFreq(:)];
 LG = fitFunc(dataVec,qcCoefs,sampFreq,psdPosFreq);
 %% 
 
-nData = 1000;
+nData = 10000;
 llrs = zeros(1,nData);
 for lp = 1:nData
     noiseVec = statgaussnoisegen(nSamples,psdVals,fltrOrdr,sampFreq);
