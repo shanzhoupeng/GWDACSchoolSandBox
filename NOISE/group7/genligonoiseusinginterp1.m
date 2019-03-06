@@ -107,6 +107,13 @@ outputNoise = fftfilt(b,inputNoise);
 figure;
 plot((0:(nDataSamples-1))/fs,outputNoise);
 snapnow;
+% figure;
+% plot((0:(nDataSamples-1))/fs,10^22*5*outputNoise,'r');
+% hold on
+% plot((0:(nDataSamples-1))/fs,inNoise);
+% legend('outNoise','inNoise');
+% snapnow;
+
 %%
 % Estimate PSD of simulated noise. *Note*: Scaling may be off because of
 % (a) factors involved in discrete version of Wiener-Khinchin theorem, and

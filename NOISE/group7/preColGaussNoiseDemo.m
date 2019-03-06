@@ -41,7 +41,10 @@ xlabel('Frequency (Hz)');
 ylabel('PSD');
 % Plot the colored noise realization
 figure;
-plot(timeVec,outNoise);
+plot(timeVec,inNoise);
+hold on
+plot(timeVec,outNoise,'r');
+legend('inNoise','outNoise');
 
 inStd=std(inNoise);
 outStd=std(outNoise);
