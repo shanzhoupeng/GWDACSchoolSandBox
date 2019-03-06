@@ -1,6 +1,6 @@
 %% Exercise #4: Part 2
 
-% Yu Sang, Mar 5th 2019
+% Yu Sang, Mar 6th 2019
 
 addpath ../
 
@@ -21,15 +21,15 @@ sampFreq3 = data3.sampFreq;
 sampFreq = sampFreq1;
 
 nSamples = length(dataVec1);
-timeVec = (0:(nSamples-1))/sampFreq;
+% timeVec = (0:(nSamples-1))/sampFreq;
 
 %% Generate the signal 
 a1=10;
 a2=3;
 a3=3;
 % Amplitude value does not matter as it will be changed in the normalization
-A = 1; 
-sigVec = crcbgenqcsig(timeVec,1,[a1,a2,a3]);
+% A = 1; 
+% sigVec = crcbgenqcsig(timeVec,1,[a1,a2,a3]);
 
 %%
 % We will use the noise PSD used in colGaussNoiseDemo.m but add a constant
@@ -51,9 +51,12 @@ psdPosFreq = noisePSD(posFreq);
 % ylabel('PSD ((data unit)^2/Hz)');
 
 %% calculate the GLRT for this signal
-GLR1 = calGLR(dataVec1,sigVec,sampFreq,psdPosFreq);
-GLR2 = calGLR(dataVec2,sigVec,sampFreq,psdPosFreq);
-GLR3 = calGLR(dataVec3,sigVec,sampFreq,psdPosFreq);
+% GLR1 = calGLR(dataVec1,sigVec,sampFreq,psdPosFreq)
+% GLR2 = calGLR(dataVec2,sigVec,sampFreq,psdPosFreq)
+% GLR3 = calGLR(dataVec3,sigVec,sampFreq,psdPosFreq)
+GLR1 = calGLRqc(dataVec1,nSamples,sampFreq,psdPosFreq, [a1,a2,a3]);
+GLR2 = calGLRqc(dataVec2,nSamples,sampFreq,psdPosFreq, [a1,a2,a3]);
+GLR3 = calGLRqc(dataVec3,nSamples,sampFreq,psdPosFreq, [a1,a2,a3]);
 
 
 %% estimate the significance of the GLRT values
