@@ -1,9 +1,10 @@
 %% Exercise 1
 % In this function we calcaulate the innerproduct with a given PSD
-% function.
+% function. (redo the coding)
+% Xiao Xue, Group4, Mar 2019
 function prod = innerprod(vec1,vec2, sampFreq, psd)
 
-nSample = length(vec1);
+nSamples = length(vec1);
 if length(vec2) ~= sampFreq
     error('two vectors must have same length')
 end

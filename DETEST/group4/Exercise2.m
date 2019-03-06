@@ -1,12 +1,13 @@
 %% Exercise2
 % In this exercise we generate the LIGO noise with a signal in it.
-% Xue Xiao, Group4
-nSamples = 16384;
+% Xue Xiao, Group4, Mar 2019
+addpath functions
+
+nSamples = 4096;
 sampFreq = 2048;
 Time = nSamples/sampFreq;
 timeVec = (0:nSamples-1)/sampFreq;
 kNyq = floor(nSamples/2)+1;
-postFreq = (1:(kNyq-1))/Time;
 
 load('data/iLIGOss.mat')
 freqVec = iLIGOss(:,1);
@@ -21,7 +22,7 @@ outnoise = sqrt(sampFreq)*fftfilt(filt,innoise);
 subplot(2,2,1)
 pwelch(outnoise, 256,[],[],sampFreq);
 
-sig0 = crcbgenfmsig(timeVec,norm(outnoise)*0.5,[300,200,2,3]);
+sig0 = crcbgenfmsig(timeVec,norm(outnoise)*3,[300,200,2,3]);
 sig  = outnoise+sig0;
 
 % in this pic we compare the real signal with the sig+noise
@@ -48,4 +49,4 @@ plot(freqVec,abs(fft1))
 hold on 
 plot(freqVec,abs(fft0))
 xlabel('Frequency (Hz)');
-
+clear all
