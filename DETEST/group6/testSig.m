@@ -25,7 +25,7 @@ timeVec = (0:(nSamples-1))/sampFreq;
 
 %% Generate the signal 
 a1=10;
-a2=2;
+a2=3;
 a3=3;
 % Amplitude value does not matter as it will be changed in the normalization
 A = 1; 
