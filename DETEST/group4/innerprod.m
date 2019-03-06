@@ -2,16 +2,16 @@
 % In this function we calcaulate the innerproduct with a given PSD
 % function. (redo the coding)
 % Xiao Xue, Group4, Mar 2019
-function prod = innerprod(vec1,vec2, sampFreq, psd)
+function prod = innerprod(vec1,vec2, sampFreq, psdVals)
 
 nSamples = length(vec1);
-if length(vec2) ~= sampFreq
+if length(vec2) ~= nSamples
     error('two vectors must have same length')
 end
 
-kNyq = floor(sampFreq/2)+1;
+kNyq = floor(nSamples/2)+1;
 
-if kNyq ~= length(psd)
+if kNyq ~= length(psdVals)
     error ('length of PSD vector must be specified at positive frequency')
 end
 
@@ -22,7 +22,7 @@ negFStrt = 1-mod(nSamples,2);
 psdVec4Norm = [psdVals,psdVals((kNyq-negFStrt):-1:2)];
 
 denom = sampFreq*nSamples;
-prod = (1/denom)*(fft1./psdVec4Norm)*fft2;
+prod = (1/denom)*(fft1./psdVec4Norm)*fft2';
 prod = real(prod);
 
 

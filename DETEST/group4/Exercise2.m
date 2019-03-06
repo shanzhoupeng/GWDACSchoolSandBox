@@ -43,10 +43,9 @@ title('Time-Frequency domain spectrogram')
 % show the signal at the frequency domain
 fft0 = fft(sig0); fft0=fft0(1:kNyq);
 fft1 = fft(sig) ; fft1=fft1(1:kNyq);
-freqVec=(0:kNyq-1)/Time;
+freqVec=(0:(kNyq-1))/Time;
 subplot(2,2,4)
 plot(freqVec,abs(fft1))
 hold on 
 plot(freqVec,abs(fft0))
 xlabel('Frequency (Hz)');
-clear all
