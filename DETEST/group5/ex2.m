@@ -1,16 +1,9 @@
-%% How to normalize a signal for a given SNR
-% We will normalize a signal such that the Likelihood ratio (LR) test for it has
-% a given signal-to-noise ratio (SNR) in noise with a given Power Spectral 
-% Density (PSD). [We often shorten this statement to say: "Normalize the
-% signal to have a given SNR." It is understood in this statement that one 
-% is talking about the LR for Gaussian noise as the detection statistic.
-
 %%
 % We will reuse codes that have already been written.
 % Path to folder containing signal and noise generation codes
-addpath ../../DSP/
+addpath ../
+addpath ../../DSP/group5/lab1
 addpath ../../NOISE/
-
 %%
 % This is the target SNR
 snr = 10;
@@ -24,12 +17,11 @@ timeVec = (0:(nSamples-1))/sampFreq;
 
 %%
 % Generate the signal that is to be normalized
-a1=10;
-a2=3;
-a3=3;
-% Amplitude value does not matter as it will be changed in the normalization
-A = 1; 
-sigVec = crcbgenqcsig(timeVec,1,[a1,a2,a3]);
+A=10;
+f0=20;
+f1=50/3;
+phi=7/5;
+sigVec =Am(A,[f0,f1],phi,timeVec);
 
 %%
 % We will use the noise PSD used in colGaussNoiseDemo.m but add a constant
@@ -53,10 +45,7 @@ ylabel('PSD ((data unit)^2/Hz)');
 
 %% Calculation of the norm
 % Norm of signal squared is inner product of signal with itself
-normSigSqrd = innerprodpsd(sigVec,sigVec,sampFreq,psdPosFreq);
-% Normalize signal to specified SNR
-sigVec = snr*sigVec/sqrt(normSigSqrd);
-
+[normSigVec,normFac]=ex1_normSigVec(sigVec,sampFreq,psdPosFreq,snr);% Normalize signal to specified SNR
 %% Test
 %Obtain LLR values for multiple noise realizations
 nH0Data = 1000;
@@ -74,26 +63,26 @@ for lp = 1:nH0Data
     dataVec = noiseVec + sigVec;
     llrH1(lp) = innerprodpsd(dataVec,sigVec,sampFreq,psdPosFreq);
 end
-%%
-% Signal to noise ratio estimate
-estSNR = (mean(llrH1)-mean(llrH0))/std(llrH0);
+%% Time domain
+figure;
+hold on;
+plot(timeVec,noiseVec);
+plot(timeVec,normSigVec);
+xlabel('Time(s)');
+ylabel(['Noise+GaussianChirp'] );
+
+%% Frequency domain
+fftsig=fft(noiseVec+normSigVec);
+L=length(noiseVec);
+figure;
+plot(sampFreq*(0:L/2)/L,abs(fftsig(1:L/2+1)));
+xlabel('Frequency(Hz)');
+ylabel('Noise+ SineGaussian signal');
+
+
+%% Spectrogram
 
 figure;
-hist(llrH0);%histogram
-hold on;
-hist(llrH1);%histogram
-xlabel('LLR');
-ylabel('Counts');
-legend('H_0','H_1');
-title(['Estimated SNR = ',num2str(estSNR)]);
-%%
-% A data realization
-figure;
-plot(timeVec,dataVec);
-hold on;
-plot(timeVec,sigVec);
-xlabel('Time (sec)');
-ylabel('Data');
-
+spectrogram(noiseVec+normSigVec, 128,127,[],sampFreq);
 
 

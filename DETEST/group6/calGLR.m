@@ -3,6 +3,7 @@ function GLR = calGLR(dataVec,sigVec,sampFreq,psdPosFreq)
 
 % Yu Sang, Mar 5th 2019
 
+snr = 1;
 norSigVec = normsig4psd(sigVec, sampFreq, psdPosFreq, snr);
 
 GLR = innerprodpsd(dataVec,norSigVec,sampFreq,psdPosFreq)^2;
