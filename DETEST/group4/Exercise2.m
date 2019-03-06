@@ -11,25 +11,34 @@ timeVec = (0:nSamples-1)/sampFreq;
 kNyq = floor(nSamples/2)+1;
 
 load('data/iLIGOss.mat')
-freqVec = iLIGOss(:,1);
-targetVec = iLIGOss(:,2).^2; %fixed: .^2 
+ifreqVec = iLIGOss(:,1);
+ipsdVec = iLIGOss(:,2).^2; %fixed: .^2 
+
+% Interpolate
+
+freqVec = (0:(kNyq-1))/Time;
+psdVec  = interp1(ifreqVec, ipsdVec, freqVec);
 
 %% Filtering the noise
-outnoise = statgaussnoisegen(nSamples,[freqVec(:),targetVec(:)],100,sampFreq);
+outnoise = statgaussnoisegen(nSamples,[freqVec(:),psdVec(:)],100,sampFreq);
 
 % in this pic we check the psd of the outnoise
 subplot(2,2,1)
-pwelch(outnoise, 256,[],[],sampFreq);
+pwelch(outnoise, 128,[],[],sampFreq);
 
-%% Put signal into the noise and plot
-sig0 = crcbgenfmsig(timeVec,norm(outnoise)*3,[300,200,2,3]);
-data  = outnoise+sig0;
+%% Normalize the signal & Put signal into the noise and plot
+sig0 = crcbgenfmsig(timeVec,1,[300,200,1,3]);
+%sig0 = crcbgenqcsig(timeVec,1,[100,30,3]);
+normfactor = innerprod(sig0, sig0, sampFreq, psdVec);
+sigVec = 10*sig0/sqrt(normfactor);
+data  = outnoise+sigVec;
+
 
 % in this pic we compare the real signal with the sig+noise
 subplot(2,2,2)
 plot(timeVec,data)
 hold on
-plot(timeVec,sig0)
+plot(timeVec,sigVec)
 xlabel('Time (sec)');
 
 %% Draw spectrogram of the noise+signal
@@ -42,9 +51,9 @@ ylabel('Frequency (Hz)');
 title('Time-Frequency domain spectrogram')
 
 % show the signal at the frequency domain
-fft0 = fft(sig0); fft0=fft0(1:kNyq);
+fft0 = fft(sigVec); fft0=fft0(1:kNyq);
 fft1 = fft(data) ; fft1=fft1(1:kNyq);
-freqVec=(0:(kNyq-1))/Time;
+
 subplot(2,2,4)
 plot(freqVec,abs(fft1))
 hold on 
