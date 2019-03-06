@@ -1,4 +1,4 @@
-% Exercise 4
+% Exercise 5
 
 %Zu-Cheng Chen, Mar 2019
 
@@ -6,7 +6,9 @@ files = ["data1.mat", "data2.mat", "data3.mat"];
 % 
 significances = [];
 for i = 1:3
-load(files(i))
+file = load(files(i));
+dataVec = file.dataVec;
+sampFreq = file.sampFreq;
 %% Data generation parameters
 
 nSamples = length(dataVec);
@@ -21,8 +23,6 @@ qcCoefs = [a1,a2,a3];
 % Amplitude value does not matter as it will be changed in the normalization
 A = 1; 
 snr =1;
-sigVec = crcbgenqcsig(timeVec,snr,qcCoefs);
-[sigVec, normFactor] = normSig(sigVec, sampFreq, psdPosFreq, snr);
 
 %%
 % Generate a realization of initial LIGO noise using NOISE/statgaussnoisegen.m
@@ -36,13 +36,13 @@ kNyq = floor(nSamples/2)+1;
 posFreq = (0:(kNyq-1))*(1/dataLen);
 psdPosFreq = noisePSD(posFreq);
 
-fltrOrdr = 30;
+fltrOrdr = 100;
 psdVals = [posFreq(:),psdPosFreq(:)];
 
 LG = fitFunc(dataVec,qcCoefs,sampFreq,psdPosFreq);
 %% 
 
-nData = 10000;
+nData = 1000;
 llrs = zeros(1,nData);
 for lp = 1:nData
     noiseVec = statgaussnoisegen(nSamples,psdVals,fltrOrdr,sampFreq);
