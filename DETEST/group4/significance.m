@@ -1,7 +1,8 @@
+addpath functions
 % Load three data vectors and sample frequency
-data1 = load('data1.mat');
-data2 = load('data2.mat');
-data3 = load('data3.mat');
+data1 = load('data/data1.mat');
+data2 = load('data/data2.mat');
+data3 = load('data/data3.mat');
 dataVec1 = data1.dataVec;
 dataVec2 = data2.dataVec;
 dataVec3 = data3.dataVec;

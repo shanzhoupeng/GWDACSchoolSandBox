@@ -8,7 +8,7 @@ timeVec = (0:nSamples-1)/sampFreq;
 kNyq = floor(nSamples/2)+1;
 postFreq = (1:(kNyq-1))/Time;
 
-load('iLIGOss.mat')
+load('data/iLIGOss.mat')
 freqVec = iLIGOss(:,1);
 targetVec = iLIGOss(:,2);
 
