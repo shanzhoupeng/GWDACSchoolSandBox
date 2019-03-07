@@ -1,5 +1,6 @@
 %% Play movies with higher fps
 %% Load data that I have prestored
+%too large to upload, one can run "skyplotmovie.m" to get fmatplus.mat and fmatcross.mat
 load('fmatplus.mat')
 load('fmatcross.mat')
 

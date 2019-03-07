@@ -9,19 +9,19 @@ A = 10;
 maxFreq = f0;
 samplFreq = 5*maxFreq;
 samplIntrvl = 1/samplFreq;
-
+ 
 % Time samples
 timeVec = 0:samplIntrvl:10;
 % Number of samples
 nSamples = length(timeVec);
-
+ 
 % Generate the signal
 sigVec = sgsig(timeVec,A,[t0,sigma,f0,phi0]);
-
+ 
 %Plot the signal 
 figure;
 plot(timeVec,sigVec)
-
+ 
 %Plot the periodogram
 %--------------
 %Length of data 
@@ -34,7 +34,10 @@ posFreq = (0:(kNyq-1))*(1/dataLen);
 fftSig = fft(sigVec);
 % Discard negative frequencies
 fftSig = fftSig(1:kNyq);
-
+ 
 %Plot periodogram
 figure;
 plot(posFreq,abs(fftSig));
+ 
+%Plot spectrogram (by Shucheng Yang of group1) 
+spectrogram(sigVec,30,[],[],samplFreq)
