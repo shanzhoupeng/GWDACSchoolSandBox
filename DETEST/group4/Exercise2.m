@@ -1,4 +1,3 @@
-%% Exercise2
 % In this exercise we generate the LIGO noise with a signal in it.
 % Xue Xiao, Group4, Mar 2019
 addpath functions
@@ -30,6 +29,7 @@ pwelch(outnoise, 128,[],[],sampFreq);
 sig0 = crcbgenfmsig(timeVec,1,[300,200,1,3]);
 %sig0 = crcbgenqcsig(timeVec,1,[100,30,3]);
 normfactor = innerprod(sig0, sig0, sampFreq, psdVec);
+SNR = 10;
 sigVec = 10*sig0/sqrt(normfactor);
 data  = outnoise+sigVec;
 
@@ -39,7 +39,9 @@ subplot(2,2,2)
 plot(timeVec,data)
 hold on
 plot(timeVec,sigVec)
-xlabel('Time (sec)');
+xlabel('Time (sec)')
+ylabel('Signal with noise')
+title(['Signal in time domain, SNR =',num2str(SNR)])
 
 %% Draw spectrogram of the noise+signal
 % in this pic we draw the time-frequency spectrograms
@@ -59,3 +61,4 @@ plot(freqVec,abs(fft1))
 hold on 
 plot(freqVec,abs(fft0))
 xlabel('Frequency (Hz)');
+title('Signal and noise in frequency domain')

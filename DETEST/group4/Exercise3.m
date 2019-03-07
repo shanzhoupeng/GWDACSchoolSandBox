@@ -1,6 +1,8 @@
 % In this exercise we check the SNR of signal in some noise.
 % Xiao Xue, Group4, Mar 2019
 
+addpath functions
+
 nSamples = 4096;
 sampFreq = 2048;
 Time = nSamples/sampFreq;
