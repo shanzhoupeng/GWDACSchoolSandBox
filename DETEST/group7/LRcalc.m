@@ -6,8 +6,8 @@
 %%
 % We will reuse codes that have already been written.
 % Path to folder containing signal and noise generation codes.
-addpath ../../TOPIC1/CODES/
-addpath ../../TOPIC3/CODES/
+addpath ../../DSP
+addpath ../../NOISE/
 
 
 %% Parameters for data realization
@@ -35,7 +35,7 @@ dataVec = noiseVec+sig4data;
 figure;
 plot(timeVec,dataVec);
 hold on;
-plot(timeVec,sig4data);
+plot(timeVec,sig4data,'r');
 xlabel('Time (sec)')
 ylabel('Data');
 title('Data realization for calculation of LR');

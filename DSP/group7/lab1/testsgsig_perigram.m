@@ -20,5 +20,5 @@ sigVec = sgsig(timeVec,A,[t0,sigma,f0,phi0]);
 %% 
 % Make periodogram 
 figure;
-periodogram(sigVec, [],[],sampFreq);
+periodogram(sigVec);
 

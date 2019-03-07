@@ -63,7 +63,8 @@ end
 
 %% Interplation
 nSens=length(targetSens);
-newFreqVec=(0:nSens-1)*fs/(2*(nSens-1));
+interval=fs/(2*(nSens-1));
+newFreqVec=0:interval:fs/2;
 
 newPsdVec=interp1(targetSens(:,1),targetSens(:,2),newFreqVec);
 

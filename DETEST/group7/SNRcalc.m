@@ -56,6 +56,25 @@ ylabel('PSD ((data unit)^2/Hz)');
 normSigSqrd = innerprodpsd(sigVec,sigVec,sampFreq,psdPosFreq);
 % Normalize signal to specified SNR
 sigVec = snr*sigVec/sqrt(normSigSqrd);
+dataVec = noiseVec+sigVec;
+%% Plot
+% time domain
+figure;
+plot(timeVec,sigVec,'r');
+hold on
+plot(timeVec,dataVec);
+xlabel('time');
+ylabel('');
+legend('Signal','Data');
+title('Data realization ');
+% frequency domain
+figure
+[pxx,f]=periodogram(noiseVec,[],[]);
+plot(f,pxx)
+hold on
+[pxx,f]=periodogram(dataVec,[],[]);
+plot(f,pxx,'r')
+legend('Noise','Data');
 
 %% Test
 %Obtain LLR values for multiple noise realizations

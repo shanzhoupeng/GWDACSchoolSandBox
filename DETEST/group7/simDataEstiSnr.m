@@ -1,15 +1,7 @@
-%% How to normalize a signal for a given SNR
-% We will normalize a signal such that the Likelihood ratio (LR) test for it has
-% a given signal-to-noise ratio (SNR) in noise with a given Power Spectral 
-% Density (PSD). [We often shorten this statement to say: "Normalize the
-% signal to have a given SNR." It is understood in this statement that one 
-% is talking about the LR for Gaussian noise as the detection statistic.
-
-%%
-% We will reuse codes that have already been written.
-% Path to folder containing signal and noise generation codes
-addpath ../DSP/
-addpath ../NOISE/
+%% Exercise2 Simulate data and plot
+%% Exercise3 Estimate SNR
+addpath ../../Noise/
+addpath ../../DSP/group7/lab1/
 
 %%
 % This is the target SNR
@@ -17,23 +9,19 @@ snr = 10;
 
 %%
 % Data generation parameters
-% Signal parameters
-f0=5;
-f1=10;
-b=0.5;
+nSamples = 2048;
+sampFreq = 1024;
+timeVec = (0:(nSamples-1))/sampFreq;
 
-% Time samples
-samplIntrvl=0.001;
-sampFreq=1/samplIntrvl;
-timeVec = 0:samplIntrvl:12;
 
-Ampli=12;
-
-% Number of samples
-nSamples = length(timeVec);
-
-% Generate the signal call signal model
-sigVec = AM_FMsinusoid(Ampli,timeVec,b,f0,f1);  
+%%
+% Generate the signal that is to be normalized
+a1=50;
+a2=5;
+phi=pi/4;
+% Amplitude value does not matter as it will be changed in the normalization
+A = 1; 
+sigVec=genlcsig(timeVec,A,[a1,a2],phi);
 
 %%
 % We will use the noise PSD used in colGaussNoiseDemo.m but add a constant
@@ -55,11 +43,36 @@ axis([0,posFreq(end),0,max(psdPosFreq)]);
 xlabel('Frequency (Hz)');
 ylabel('PSD ((data unit)^2/Hz)');
 
-%% Calculation of the norm
-% Norm of signal squared is inner product of signal with itself
-normSigSqrd = innerprodpsd(sigVec,sigVec,sampFreq,psdPosFreq);
-% Normalize signal to specified SNR
-sigVec = snr*sigVec/sqrt(normSigSqrd);
+%% 
+%Get normalized signal
+sigVec=normsig4psd(sigVec,sampFreq,psdPosFreq,snr);
+%Generate noise realization
+fltrOrdr=100;
+noiseVec = statgaussnoisegen(nSamples,[posFreq(:),psdPosFreq(:)],fltrOrdr,sampFreq);
+%Data
+dataVec = noiseVec+sigVec;
+%% Plot
+% time domain
+figure;
+plot(timeVec,sigVec,'r');
+hold on
+plot(timeVec,dataVec);
+xlabel('time');
+ylabel('');
+legend('Signal','Data');
+title('Data realization ');
+% frequency domain
+figure
+[pxx,f]=periodogram(noiseVec,[],[]);
+plot(f,pxx)
+hold on
+[pxx,f]=periodogram(dataVec,[],[]);
+plot(f,pxx,'r')
+legend('Noise','Data');
+% figure;
+% spectrogram(sigVec, 128,127,[],sampFreq);
+figure;
+spectrogram(sigVec, 256,250,[],sampFreq);
 
 %% Test
 %Obtain LLR values for multiple noise realizations
@@ -83,9 +96,9 @@ end
 estSNR = (mean(llrH1)-mean(llrH0))/std(llrH0);
 
 figure;
-histogram(llrH0);
+hist(llrH0);%histogram
 hold on;
-histogram(llrH1);
+hist(llrH1);%histogram
 xlabel('LLR');
 ylabel('Counts');
 legend('H_0','H_1');

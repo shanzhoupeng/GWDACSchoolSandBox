@@ -1,5 +1,5 @@
 % A test for group1
-%% Spectrogram demo
+%% Spectrogram 
 % Signal parameters
 t0=0.5;
 sigma=1;

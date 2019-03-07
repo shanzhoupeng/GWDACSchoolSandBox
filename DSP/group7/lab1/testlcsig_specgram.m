@@ -1,4 +1,4 @@
-%% Spectrogram demo
+%% Spectrogram 
 % Signal parameters
 a1=5;
 a2=3;

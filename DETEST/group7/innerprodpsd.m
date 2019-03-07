@@ -23,6 +23,6 @@ fftY = fft(yVec);
 negFStrt = 1-mod(nSamples,2);
 psdVec4Norm = [psdVals,psdVals((kNyq-negFStrt):-1:2)];
 
-dataLen = nSamples/sampFreq; %need to be verified
+dataLen = nSamples*sampFreq; 
 innProd = (1/dataLen)*(fftX./psdVec4Norm)*fftY';
 innProd = real(innProd);
