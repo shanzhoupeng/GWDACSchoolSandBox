@@ -1,15 +1,11 @@
 addpath ..
 
 %% estimate psd
-file = load("analysisData.mat");
-noiseVec = file.dataVec;
-sampFreq = file.sampFreq; 
-nSamples = length(noiseVec);
-dataX = (0:(nSamples-1))/sampFreq; % timeVec
-
-[pxx,f] = pwelch(noiseVec, 128,[],[],sampFreq);
+file = load('TrainingData.mat');
+noiseVec = file.trainData;
+sampFreq = file.sampFreq;
+[pxx,f] = pwelch(noiseVec, 128,[],2048,sampFreq);
 psdPosFreq = transpose(pxx);
-length(psdPosFreq)
 figure;
 plot(f,psdPosFreq);
 xlabel('Frequency (Hz)');
@@ -29,6 +25,9 @@ nIter = 4000; % number of iterations
 file = load("analysisData.mat");
 dataY = file.dataVec; %dataVec
 Fs = file.sampFreq; 
+ 
+nSamples = length(dataY);
+dataX = (0:(nSamples-1))/sampFreq; % timeVec
 
 %% run pso
 % Input parameters for CRCBQCHRPPSO
@@ -55,7 +54,7 @@ plot(dataX,outStruct.bestSig,'Color',[76,153,0]/255,'LineWidth',2.0);
 disp(['Estimated parameters: a1=',num2str(outStruct.bestQcCoefs(1)),...
                              '; a2=',num2str(outStruct.bestQcCoefs(2)),...
                              '; a3=',num2str(outStruct.bestQcCoefs(3))]);
-% a1=55.1412; a2=47.3567; a3=8.7144                         
+% a1=50.0235; a2=29.9483; a3=10.0171                         
 %% GLRT
 
 % Phase coefficients parameters of the true signal
@@ -64,10 +63,10 @@ sigVec = crcbgenqcsig(dataX,1,qcCoefs);
 
 normSigVec = normSig(sigVec, sampFreq, psdPosFreq, 1);
 
-% GLRT
-LG = innerprodpsd(dataY, normSigVec, sampFreq, psdPosFreq)^2;
-% LG = 1.7776e+03
-
 % MLE
 MLE = outStruct.bestFitness;
-% MLE = -1.7776e+03
+% MLE = -43.2881
+
+% GLRT
+LG = -MLE;
+% LG = 43.2881
