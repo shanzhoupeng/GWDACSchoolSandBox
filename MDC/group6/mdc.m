@@ -70,11 +70,37 @@ disp(['Estimated parameters: a1=',num2str(outStruct.bestQcCoefs(1)),...
                              '; a3=',num2str(outStruct.bestQcCoefs(3))]);
 disp(['best fitness value  ', num2str(outStruct.bestFitness)]);                         
                          
-%%
-%%outStruct.allRunsOutput.fitVal
-                  
-                         
-                        
+%% test significance and estimate SNR
+% Generate the signal that is to be normalized
+a1 = outStruct.bestQcCoefs(1);
+a2 = outStruct.bestQcCoefs(2);
+a3 = outStruct.bestQcCoefs(3);
+% Amplitude value does not matter as it will be changed in the normalization
+%A = 1; 
+%sigVec = crcbgenqcsig(dataX,1,[a1,a2,a3]);          
+% % GLR from the data, GLR observed
+% GLRobs = calGLRqc(dataY,nSamples,Fs,psdPosFreq_regular, [a1,a2,a3]);
+% GLR observed is the minus of best fitness value 
+GLRobs = - outStruct.bestFitness;
+
+% estimate the significance of the GLRT values
+nH0Data = 1000;
+glrH0 = zeros(1,nH0Data);
+for lp = 1:nH0Data
+    noiseVec = statgaussnoisegen(nSamples,[posFreq_regular(:),psdPosFreq_regular(:)],100,Fs);
+    glrH0(lp) = calGLRqc(noiseVec,nSamples,Fs,psdPosFreq_regular,[a1,a2,a3]);
+end
+
+% significance of the GLRT values for the 3 data realizations
+significance =  sum( glrH0 > GLRobs ) / nH0Data;
+
+%% estimate SNR
+% Signal to noise ratio estimate
+estSNR = (GLRobs - mean(glrH0))/std(glrH0);
+
+
+
 % a1=50.142; a2=29.803; a3=10.0597
 
+% answer given by Prof.
 % a1 = 50, a2 = 30, a3 = 10, SNR = 8.3
