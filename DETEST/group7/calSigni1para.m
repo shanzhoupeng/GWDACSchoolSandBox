@@ -25,7 +25,6 @@ sigVec=crcbgenqcsig(timeVec,A,[a1,a2,a3]);
 significance=ones(1,3);
 for n=1:3
   load (['data',num2str(n),'.mat']); %dataVec
-  nTimes=0;
   llr = innerprodpsd(dataVec,templateVec,sampFreq,psdPosFreq);
   llrObs = llr^2;
   %% Test
