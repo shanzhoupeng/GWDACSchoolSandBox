@@ -2,6 +2,7 @@
 
 %Zu-Cheng Chen, Mar 2019
 
+addpath ../..
 files = ["data1.mat", "data2.mat", "data3.mat"];
 % 
 significances = [];
