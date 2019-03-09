@@ -17,7 +17,9 @@ rmin = [40, 1, 1];
 rmax = [100, 50, 15];
 
 % Number of independent PSO runs
-nRuns = 8;
+nRuns = 2;
+% Number of iterations in PSO for one run
+maxSteps=1000;
 
 %% Noise parameters
 % PSD function
@@ -52,24 +54,20 @@ inParams = struct('dataX', dataX,...
 % CRCBQCHRPPSO runs PSO on the CRCBQCHRPFITFUNC fitness function. As an
 % illustration of usage, we change one of the PSO parameters from its
 % default value.
-outStruct = qcpso(inParams,struct('maxSteps',2000),nRuns);
+outStruct = qcpso(inParams,struct('maxSteps',maxSteps),nRuns);
 
 %%
 % Plots
-
-% figure;
-% hold on;
-% plot(dataX,dataY,'.');
+figure;
+hold on;
+plot(dataX,dataVec,'.');
 % plot(dataX,sigVec);
-% for lpruns = 1:nRuns
-%     plot(dataX,outStruct.allRunsOutput(lpruns).estSig,'Color',[51,255,153]/255,'LineWidth',4.0);
-% end
-% plot(dataX,outStruct.bestSig,'Color',[76,153,0]/255,'LineWidth',2.0);
-% disp(['Estimated parameters: a1=',num2str(outStruct.bestQcCoefs(1)),...
-%                              '; a2=',num2str(outStruct.bestQcCoefs(2)),...
-%                              '; a3=',num2str(outStruct.bestQcCoefs(3))]);
-
-
-
+for lpruns = 1:nRuns
+    plot(dataX,outStruct.allRunsOutput(lpruns).estSig,'Color',[51,255,153]/255,'LineWidth',2.0);
+end
+plot(dataX,outStruct.bestSig,'Color',[76,153,0]/255,'LineWidth',1.0);
+disp(['Estimated parameters: a1=',num2str(outStruct.bestQcCoefs(1)),...
+                             '; a2=',num2str(outStruct.bestQcCoefs(2)),...
+                             '; a3=',num2str(outStruct.bestQcCoefs(3))]);
 
 

@@ -28,7 +28,7 @@ sigVec=genlcsig(timeVec,A,[a1,a2],phi);
 % to remove the parts that are zero. (Exercise: Prove that if the noise PSD
 % is zero at some frequencies but the signal added to the noise is not,
 % then one can create a detection statistic with infinite SNR.)
-noisePSD = @(f) (f>=100 & f<=300).*(f-100).*(300-f)/10000 + 1;
+noisePSD = @(f) (f>=100 & f<=300).*(f-100).*(300-f)/10000+ 1;
 
 %%
 % Generate the PSD vector to be used in the normalization. Should be
@@ -47,7 +47,7 @@ ylabel('PSD ((data unit)^2/Hz)');
 %Get normalized signal
 sigVec=normsig4psd(sigVec,sampFreq,psdPosFreq,snr);
 %Generate noise realization
-fltrOrdr=100;
+fltrOrdr = 100;
 noiseVec = statgaussnoisegen(nSamples,[posFreq(:),psdPosFreq(:)],fltrOrdr,sampFreq);
 %Data
 dataVec = noiseVec+sigVec;
