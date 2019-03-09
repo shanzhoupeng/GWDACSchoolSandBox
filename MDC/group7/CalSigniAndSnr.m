@@ -10,7 +10,6 @@ disp('Calculating the significance and SNR...')
 glrtObs = -outStruct.bestFitness;%
 
 % Obtain LLR values for multiple noise realizations
-nRealization = 10;
 glrtH0 = zeros(1,nRealization);
 
 %Allocate storage
